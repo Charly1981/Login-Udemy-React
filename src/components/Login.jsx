@@ -12,7 +12,7 @@ function Login(props) {
     e.preventDefault();
 
     if (!email.trim()) {
-      console.log("Ingrese emai ll");
+      console.log("Ingrese email");
       setError("Ingrese email");
       return;
     }
