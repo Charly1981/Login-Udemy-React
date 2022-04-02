@@ -3,8 +3,8 @@ import { auth, db } from "../firebase";
 import { withRouter } from "react-router-dom";
 
 function Login(props) {
-  const [email, setEmail] = React.useState("prueba@hotmail.com ");
-  const [pass, setPass] = React.useState("123456");
+  const [email, setEmail] = React.useState("");
+  const [pass, setPass] = React.useState("");
   const [error, setError] = React.useState(null);
   const [esRegistro, setEsRegistro] = React.useState(false);
 
@@ -40,7 +40,7 @@ function Login(props) {
 
   const login = React.useCallback(async () => {
     try {
-      const res = await auth.signInWithEmailAndPassword(email, pass);
+      await auth.signInWithEmailAndPassword(email, pass);
       setEmail("");
       setPass("");
       setError(null);
@@ -110,6 +110,7 @@ function Login(props) {
               onChange={(e) => setPass(e.target.value)}
               value={pass}
             />
+
             <button className="btn btn-dark btn-lg btn-block" type="submit">
               {esRegistro ? "Registrarse" : "Acceder"}
             </button>
@@ -120,6 +121,16 @@ function Login(props) {
             >
               {esRegistro ? "Ya estas registrado?" : "No tienes cuenta?"}
             </button>
+
+            {!esRegistro ? (
+              <button
+                className="btn btn-lg btn-danger btn-sm mt-2"
+                type="button"
+                onClick={() => props.history.push("/reset")}
+              >
+                Recuperar Contraseña
+              </button>
+            ) : null}
           </form>
         </div>
       </div>
